@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusFlow | Reliable Routine</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="main-header">
+            <div>
+                <h1 class="logo">FocusFlow</h1>
+                <div class="active-info">
+                    <span id="current-view-title">Today's Tasks</span>
+                </div>
+            </div>
+            <button class="add-task-btn" onclick="openModal()">+ Add Task</button>
+        </header>
+
+        <main class="content-area">
+            <section id="tasks-view" class="view">
+                <div id="task-list-container"></div>
+            </section>
+
+            <section id="calendar-view" class="view" style="display:none;">
+                <div class="calendar-controls">
+                    <button onclick="changeMonth(-1)" class="nav-arrow">◀</button>
+                    <h2 id="month-label">Month Year</h2>
+                    <button onclick="changeMonth(1)" class="nav-arrow">▶</button>
+                </div>
+                <div id="calendar-grid" class="calendar-grid"></div>
+            </section>
+
+            <section id="dashboard-view" class="view" style="display:none;">
+                <div class="chart-container">
+                    <canvas id="statsChart"></canvas>
+                </div>
+                <div class="stats-summary">
+                    <div class="stat-card">
+                        <small>Total Created</small>
+                        <h3 id="stat-total">0</h3>
+                    </div>
+                    <div class="stat-card">
+                        <small>Total Done</small>
+                        <h3 id="stat-done">0</h3>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="showView('tasks', this)"><i data-lucide="check-square"></i></button>
+            <button class="nav-item" onclick="showView('calendar', this)"><i data-lucide="calendar"></i></button>
+            <button class="nav-item" onclick="showView('dashboard', this)"><i data-lucide="pie-chart"></i></button>
+        </nav>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-card">
+            <h3>Create Activity</h3>
+            <input type="text" id="task-input" placeholder="Task Name (e.g. Yoga)">
+            
+            <div class="form-row">
+                <div>
+                    <label>Priority</label>
+                    <select id="priority-input">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Duration (Days)</label>
+                    <input type="number" id="duration-input" value="1" min="1">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button onclick="closeModal()" class="btn-secondary">Cancel</button>
+                <button onclick="handleSaveTask()" class="btn-primary">Save Task</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
